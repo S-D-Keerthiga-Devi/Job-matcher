@@ -77,17 +77,6 @@ def matcher():
     return render_template('matchresume.html')
 
 
-
-    try:
-        response = groq_client.chat.completions.create(
-            model="llama3-8b-8192",
-            messages=[{"role": "user", "content": user_query}],
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        print(f"🔥 ERROR: {e}")
-        return f"Error: {str(e)}"
-
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
         os.makedirs(app.config['UPLOAD_FOLDER'])
