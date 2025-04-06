@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173","http://localhost:3000","http://localhost:5000"])
+# CORS(app, origins=["http://localhost:5173","http://localhost:3000","http://localhost:5000"])
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 
 def extract_text_from_pdf(file_path):
