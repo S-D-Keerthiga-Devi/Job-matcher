@@ -1,0 +1,13 @@
+prefix=/Users/keerthiga/job-match/job-matcher-ai-model/venv
+exec_prefix=/Users/keerthiga/job-match/job-matcher-ai-model/venv
+libdir=/Users/keerthiga/job-match/job-matcher-ai-model/venv/lib
+sharedlibdir=/Users/keerthiga/job-match/job-matcher-ai-model/venv/lib
+includedir=/Users/keerthiga/job-match/job-matcher-ai-model/venv/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

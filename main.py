@@ -1,13 +1,17 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from flask_cors import CORS
 import os
 import docx2txt
 import PyPDF2
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+import groq
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5173"])
+CORS(app, origins=["http://localhost:5173","http://localhost:3000","http://localhost:5000"])
 app.config['UPLOAD_FOLDER'] = 'uploads/'
 
 def extract_text_from_pdf(file_path):
@@ -71,6 +75,18 @@ def matcher():
         return render_template('matchresume.html', message="Top matching resumes:", top_resumes=top_resumes, similarity_scores=similarity_scores)
 
     return render_template('matchresume.html')
+
+
+
+    try:
+        response = groq_client.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[{"role": "user", "content": user_query}],
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        print(f"🔥 ERROR: {e}")
+        return f"Error: {str(e)}"
 
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
